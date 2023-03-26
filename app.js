@@ -1,125 +1,127 @@
-class Dinosaurs {
-    constructor(reino, superorden) {
+function Dinosaurs (reino, superorden) {
         this.reino = 'Animalia';
         this.superorden = 'Dinosauria'
-    }
+}
 
-    getTaxonomia() {
-        console.log(`Reino: ${this.reino}, Superorden: ${this.superorden}`)
-    }
-    run = () => console.log(`My name is ${this.name}. I can run.`);
+Dinosaurs.prototype.getTaxonomia = function() {
+    console.log(`Reino: ${this.reino}, Superorden: ${this.superorden}`)
+}
+
+Dinosaurs.prototype.run = function() {
+    console.log(`My name is ${this.name}. I can run.`);
 }
 
 
-class Carnivore extends Dinosaurs{
-    constructor(isMeatEating) {
-        super();
-        this.isMeatEating = isMeatEating
-    }
+function Carnivore(reino,superorden, isMeatEating) {
+    Dinosaurs.call(this, reino, superorden);
+    this.isMeatEating = isMeatEating;
+}
 
-    eatMeat() {
-        if (this.isMeatEating) {
-            console.log('Eat meat')
-        } else {
-            console.log('Don`t eat meat')
-        }
+Carnivore.prototype = Object.create(Dinosaurs.prototype);
+
+Carnivore.prototype.eatMeat = function() {
+    if (this.isMeatEating) {
+        console.log('Eat meat');
+    } else {
+        console.log('Don`t eat meat');
     }
 }
 
-class Herbivorous extends Dinosaurs{
-    constructor(isMeatHerbs) {
-        super();
-        this.isMeatHerbs = isMeatHerbs
-    }
+function Herbivorous(reino,superorden, isMeatHerbs) {    
+    Dinosaurs.call(this, reino, superorden);
+    this.isMeatHerbs = isMeatHerbs;
+}
 
-    eatHerbs() {
-        if (this.isMeatHerbs) {
-            console.log('Eat herbs')
-        } else {
-            console.log('Don`t eat herbs')
-        }
+Herbivorous.prototype = Object.create(Dinosaurs.prototype);
+
+Herbivorous.prototype.eatHerbs = function() {
+    if (this.isMeatHerbs) {
+        console.log('Eat herbs')
+    } else {
+        console.log('Don`t eat herbs')
     }
 }
 
-
-class Triceraptor extends Herbivorous {
-    #number;
-    constructor(name, color, timeExistence, horns, isMeatHerbs) {
-        super(isMeatHerbs)
-        this.name = name;
-        this.color = color;
-        this.timeExistence = timeExistence;
-        this.horns = horns;
-        this.#number = 1;
-    }
-
-    view = () => console.log(`${this.name} has ${this.horns}. Color - ${this.color}`);
-    getTimeExistence = () => this.timeExistence;
-    getNumber = () => {
-        this.#number = this.#number + 1;
-        return this.#number;
-    }}
-
-class Tirannosaurus extends Carnivore {
-    #number;
-    constructor(name, color, timeExistence, tail, isMeatEating) {
-        super(isMeatEating)
-        this.name = name;
-        this.color = color;
-        this.timeExistence = timeExistence;
-        this.tail = tail;
-        this.#number = 1;
-    }
-
-    view = () => console.log(`${this.name} has ${this.tail}. Color - ${this.color}`);
-    getTimeExistence = () => this.timeExistence;
-    getNumber = () => {
-        this.#number = this.#number + 1;
-        return this.#number;
-    }
+function Triceraptor(name, color, timeExistence, horns, isMeatHerbs) {
+    Herbivorous.call(this, isMeatHerbs);
+    this.isMeatHerbs = isMeatHerbs;
+    this.name = name;
+    this.color = color;
+    this.timeExistence = timeExistence;
+    this.horns = horns;
 }
 
-class Pterodactyl extends Carnivore {
-    #number;
-    constructor(name, color, timeExistence, wings, isMeatEating) {
-        super(isMeatEating)
-        this.name = name;
-        this.color = color;
-        this.timeExistence = timeExistence;
-        this.wings = wings;
-        this.#number = 1;
-    }
+Triceraptor.prototype = Object.create(Herbivorous.prototype);
 
-    run = () => console.log(`i can\`t run`);
-    fly = () => console.log(`My name is ${this.name}. I can fly.`);
-    view = () => console.log(`${this.name} has ${this.wings}. Color - ${this.color}`);
-    getTimeExistence = () => this.timeExistence;
-    getNumber = () => {
-        this.#number = this.#number + 1;
-        return this.#number;
-    }}
+Triceraptor.prototype.view = function () {
+    console.log(`${this.name} has ${this.horns}. Color - ${this.color}`);
+}
+Triceraptor.prototype.getTimeExistence = function () {
+    this.timeExistence;
+}
 
-class Diplodocus extends Herbivorous{
-    #number;
-    constructor(name, color, timeExistence, legs, isMeatHerbs) {
-        super(isMeatHerbs)
-        this.name = name;
-        this.color = color;
-        this.timeExistence = timeExistence;
-        this.legs = legs;
-        this.#number = 1;
-    }
+function Tirannosaurus(name, color, timeExistence, tail, isMeatEating) {
+    Carnivore.call(this, isMeatEating);
+    this.isMeatEating = isMeatEating;
+    this.name = name;
+    this.color = color;
+    this.timeExistence = timeExistence;
+    this.tail = tail;
+}
 
-    view = () => console.log(`${this.name} has ${legs}. Color - ${this.color}`);
-    getTimeExistence = () => this.timeExistence;
-    getNumber = () => {
-        this.#number = this.#number + 1;
-        return this.#number;
-    }}
+Tirannosaurus.prototype = Object.create(Carnivore.prototype);
+
+Tirannosaurus.prototype.view = function(){
+    console.log(`${this.name} has ${this.tail}. Color - ${this.color}`);
+}
+Tirannosaurus.prototype.getTimeExistence = function(){
+    this.timeExistence;
+}
+
+function Pterodactyl(name, color, timeExistence, wings, isMeatEating) {
+    Carnivore.call(this, isMeatEating);
+    this.isMeatEating = isMeatEating;
+    this.name = name;
+    this.color = color;
+    this.timeExistence = timeExistence;
+    this.wings = wings;
+}
+
+Pterodactyl.prototype = Object.create(Carnivore.prototype);
+
+Pterodactyl.prototype.run = function() {
+    console.log(`i can\`t run`);
+}
+Pterodactyl.prototype.fly = function() {
+    console.log(`My name is ${this.name}. I can fly.`);
+}
+Pterodactyl.prototype.view = function() {
+    console.log(`${this.name} has ${this.wings}. Color - ${this.color}`);
+}
+Pterodactyl.prototype.getTimeExistence = function() {
+    this.timeExistence;
+}
+
+function Diplodocus(name, color, timeExistence, legs, isMeatHerbs) {
+    Herbivorous.call(this, isMeatHerbs);
+    this.isMeatHerbs = isMeatHerbs;
+    this.name = name;
+    this.color = color;
+    this.timeExistence = timeExistence;
+    this.legs = legs;
+}
+
+Diplodocus.prototype = Object.create(Herbivorous.prototype);
+
+Diplodocus.prototype.view = function() {
+    console.log(`${this.name} has ${legs}. Color - ${this.color}`);
+}
+Diplodocus.prototype.getTimeExistence = function() {
+    this.timeExistence;
+}
 
 const redTriceraptor = new Triceraptor('Shon', 'red', 'Late Cretaceous', 'three horns', true);
 const redTriceraptor2 = new Triceraptor('Shon', 'red', 'Late Cretaceous', 'three horns', true);
-console.log(redTriceraptor2.getNumber())
 
 const blueTirannosaurus = new Tirannosaurus('Rex', 'blue', 'Late Cretaceous', 'tail', true);
 const yellowPterodactyl = new Pterodactyl('Sara', 'yelllow', 'Early Tithonian', 'two wings', true);
